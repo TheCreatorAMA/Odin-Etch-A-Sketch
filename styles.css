@@ -9,4 +9,12 @@ body {
 
 .main-grid {
   display: grid;
+  height: 50%;
+  width: 50%;
+}
+
+.grid-item {
+  padding: 1em;
+  border: 1px solid black;
+  text-align: cetner;
 }

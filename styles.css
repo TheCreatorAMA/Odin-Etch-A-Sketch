@@ -7,14 +7,16 @@ body {
   justify-content: center;
 }
 
+.main-content {
+  display: flex;
+}
 .main-grid {
   display: grid;
-  height: 50%;
-  width: 50%;
 }
 
 .grid-item {
   padding: 1em;
+  margin: -0.5px;
   border: 1px solid black;
   text-align: cetner;
 }

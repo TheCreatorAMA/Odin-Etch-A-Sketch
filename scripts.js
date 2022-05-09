@@ -1,9 +1,12 @@
 const mainGrid = document.querySelector('.main-grid');
+const clearGridButton = document.querySelector('#clear-grid');
 
 // This is here to simulate mouse "held" state
 let mouseDown = false;
 document.body.onmousedown = () => (mouseDown = true);
 document.body.onmouseup = () => (mouseDown = false);
+
+clearGridButton.addEventListener('click', clearGrid);
 
 function generateGrid(rows, cols) {
   // To generate grid using css-grid.
@@ -15,8 +18,16 @@ function generateGrid(rows, cols) {
     // Event listener to
     newCell.addEventListener('mouseover', changeColor);
     newCell.addEventListener('mousedown', changeColor);
-    newCell.style.cssText = `width: ${1 / (rows * cols)};height: 1/(rows * cols)}%;`;
+    newCell.style.cssText = `width: ${1 / (rows * cols)}%;height: ${1 / (rows * cols)}%~S;`;
     mainGrid.appendChild(newCell).className = 'grid-item';
+  }
+}
+
+function clearGrid() {
+  let cells = document.querySelectorAll('.grid-item');
+
+  for (let cell of cells) {
+    cell.style.setProperty('background-color', 'initial');
   }
 }
 

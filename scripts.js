@@ -1,24 +1,34 @@
 const mainGrid = document.querySelector('.main-grid');
 const clearGridButton = document.querySelector('#clear-grid');
+const slider = document.querySelector('#grid-slider');
+const sliderValue = document.querySelector('#slider-value');
 
 // This is here to simulate mouse "held" state
 let mouseDown = false;
-document.body.onmousedown = () => (mouseDown = true);
-document.body.onmouseup = () => (mouseDown = false);
+mainGrid.addEventListener('mousedown', () => (mouseDown = true));
+mainGrid.addEventListener('mouseup', () => (mouseDown = false));
 
 clearGridButton.addEventListener('click', clearGrid);
 
-function generateGrid(rows, cols) {
-  // To generate grid using css-grid.
-  mainGrid.style.cssText = `grid-template-rows: repeat(${rows}, 1fr);grid-template-columns: repeat(${cols}, 1fr);`;
+// setting slider value display to initial slider value and make it listen
+// for when the slider value changes.
+sliderValue.textContent = slider.value;
+slider.oninput = () => {
+  sliderValue.textContent = slider.value;
+  generateGrid(sliderValue, sliderValue);
+};
 
-  for (let item = 0; item < rows * cols; item++) {
+function generateGrid(size) {
+  // To generate grid using css-grid.
+  mainGrid.style.cssText = `grid-template-rows: repeat(${size}, 1fr);grid-template-columns: repeat(${size}, 1fr);`;
+
+  for (let item = 0; item < size * size; item++) {
     let newCell = document.createElement('div');
 
     // Event listener to
     newCell.addEventListener('mouseover', changeColor);
     newCell.addEventListener('mousedown', changeColor);
-    newCell.style.cssText = `width: ${1 / (rows * cols)}%;height: ${1 / (rows * cols)}%~S;`;
+    newCell.style.cssText = `width: ${1 / (size * size)}%;height: ${1 / (size * size)}%;`;
     mainGrid.appendChild(newCell).className = 'grid-item';
   }
 }
@@ -37,4 +47,4 @@ function changeColor(e) {
   e.target.style.cssText = 'background-color: black;';
 }
 
-generateGrid(16, 16);
+generateGrid(16);

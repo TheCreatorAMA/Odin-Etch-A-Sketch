@@ -9,9 +9,16 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="Header"><h1>Etch-a-Sketch</h1></div>
+    <div class="header"><h1>Etch-a-Sketch</h1></div>
     <div class="main-content">
-      <div class="tool-bar"><button id="clear-grid">Clear Sketch</button></div>
+      <div class="tool-bar">
+        <button id="clear-grid">Clear Sketch</button>
+        <button id="rainbow">Rainbow Mode</button>
+        <div class="slider-container">
+          <div id="slider-value"></div>
+          <input type="range" min="8" max="64" value="16" step="1" class="slider" id="grid-slider" />
+        </div>
+      </div>
       <div class="main-grid"></div>
     </div>
   </body>

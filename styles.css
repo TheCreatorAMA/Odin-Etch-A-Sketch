@@ -48,3 +48,27 @@ button {
   border-radius: 5px;
   padding: 10px;
 }
+
+.color-picker-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling color picker */
+.color-picker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 5em;
+  height: 5em;
+  margin-bottom: 5px;
+}
+
+.color-picker::-webkit-color-swatch {
+  border: none;
+  border-radius: 1.5em;
+}

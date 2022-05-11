@@ -7,9 +7,13 @@ const rainbowModeButton = document.querySelector('#rainbow');
 const shaderModeButton = document.querySelector('#shader');
 const slider = document.querySelector('#grid-slider');
 const sliderValue = document.querySelector('#slider-value');
+const colorPicker = document.querySelector('.color-picker');
+
+let currentColor = colorPicker.value;
+let colorModeTracker = 'normal';
+let mouseDown = false;
 
 // This is here to simulate mouse "held" state
-let mouseDown = false;
 mainGrid.addEventListener('mousedown', () => (mouseDown = true));
 mainGrid.addEventListener('mouseup', () => (mouseDown = false));
 
@@ -17,10 +21,18 @@ mainGrid.addEventListener('mouseup', () => (mouseDown = false));
 clearGridButton.addEventListener('click', clearGrid);
 
 // Event listeners for color modes
-let colorModeTracker = 'normal';
-eraserModeButton.addEventListener('click', () => (colorModeTracker = 'eraser'));
-rainbowModeButton.addEventListener('click', () => (colorModeTracker = 'rainbow'));
-shaderModeButton.addEventListener('click', () => (colorModeTracker = 'shader'));
+eraserModeButton.addEventListener(
+  'click',
+  () => (colorModeTracker = colorModeTracker == 'eraser' ? 'normal' : 'eraser')
+);
+rainbowModeButton.addEventListener(
+  'click',
+  () => (colorModeTracker = colorModeTracker == 'rainbow' ? 'normal' : 'rainbow')
+);
+shaderModeButton.addEventListener(
+  'click',
+  () => (colorModeTracker = colorModeTracker == 'shader' ? 'normal' : 'shader')
+);
 
 // setting slider value display to initial slider value and make it listen
 // for when the slider value changes.
@@ -30,6 +42,9 @@ slider.oninput = () => {
   deleteGrid();
   generateGrid(slider.value);
 };
+
+// Event listener for color picker input
+colorPicker.oninput = (e) => (currentColor = e.target.value);
 
 function generateGrid(size) {
   // To generate grid using css-grid.
@@ -70,7 +85,7 @@ function changeColor(e) {
 
   switch (colorModeTracker) {
     case `normal`:
-      e.target.style.cssText = 'background-color: black;';
+      e.target.style.cssText = `background-color: ${currentColor};`;
       break;
     case 'rainbow':
       e.target.style.cssText = `background-color: ${generateRandomColor()};`;

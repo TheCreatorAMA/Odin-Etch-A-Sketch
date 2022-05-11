@@ -4,7 +4,7 @@ const mainGrid = document.querySelector('.main-grid');
 const clearGridButton = document.querySelector('#clear-grid');
 const eraserModeButton = document.querySelector('#eraser');
 const rainbowModeButton = document.querySelector('#rainbow');
-const shaderModeButton = document.querySelector('#shader');
+// const shaderModeButton = document.querySelector('#shader');
 const slider = document.querySelector('#grid-slider');
 const sliderValue = document.querySelector('#slider-value');
 const colorPicker = document.querySelector('.color-picker');
@@ -23,16 +23,16 @@ clearGridButton.addEventListener('click', clearGrid);
 // Event listeners for color modes
 eraserModeButton.addEventListener(
   'click',
-  () => (colorModeTracker = colorModeTracker == 'eraser' ? 'normal' : 'eraser')
+  () => (colorModeTracker = colorModeTracker === 'eraser' ? 'normal' : 'eraser')
 );
 rainbowModeButton.addEventListener(
   'click',
-  () => (colorModeTracker = colorModeTracker == 'rainbow' ? 'normal' : 'rainbow')
+  () => (colorModeTracker = colorModeTracker === 'rainbow' ? 'normal' : 'rainbow')
 );
-shaderModeButton.addEventListener(
-  'click',
-  () => (colorModeTracker = colorModeTracker == 'shader' ? 'normal' : 'shader')
-);
+// shaderModeButton.addEventListener(
+//   'click',
+//   () => (colorModeTracker = colorModeTracker === 'shader' ? 'normal' : 'shader')
+// );
 
 // setting slider value display to initial slider value and make it listen
 // for when the slider value changes.

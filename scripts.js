@@ -1,5 +1,6 @@
 const mainGrid = document.querySelector('.main-grid');
 const clearGridButton = document.querySelector('#clear-grid');
+const rainbowModeButton = document.querySelector('#rainbow');
 const slider = document.querySelector('#grid-slider');
 const sliderValue = document.querySelector('#slider-value');
 
@@ -8,7 +9,14 @@ let mouseDown = false;
 mainGrid.addEventListener('mousedown', () => (mouseDown = true));
 mainGrid.addEventListener('mouseup', () => (mouseDown = false));
 
+// Rainbow mode tracker
+let rainbowMode = false;
+
+// Event listener on clear grid button to reset canvas
 clearGridButton.addEventListener('click', clearGrid);
+
+// Event listener for rainbowMode button
+rainbowModeButton.addEventListener('click', () => (rainbowMode = !rainbowMode));
 
 // setting slider value display to initial slider value and make it listen
 // for when the slider value changes.
@@ -55,7 +63,22 @@ function clearGrid() {
 function changeColor(e) {
   // only change background color of cell if mousedown has occured and mouse is in cell
   if (e.type === 'mouseover' && !mouseDown) return;
-  e.target.style.cssText = 'background-color: black;';
+
+  if (!rainbowMode) {
+    e.target.style.cssText = 'background-color: black;';
+  } else {
+    e.target.style.cssText = `background-color: ${generateRandomColor()};`;
+  }
+}
+
+function generateRandomColor() {
+  let r = Math.floor(Math.random() * 256);
+  let g = Math.floor(Math.random() * 256);
+  let b = Math.floor(Math.random() * 256);
+
+  let color = `rgb(${r}, ${g}, ${b})`;
+
+  return color;
 }
 
 window.onload = () => {

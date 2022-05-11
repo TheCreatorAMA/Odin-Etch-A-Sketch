@@ -10,11 +10,15 @@ body {
 .header {
   display: flex;
   flex: 1;
+  justify-content: center;
+  padding-bottom: 5%;
 }
 
 .main-content {
   display: flex;
-  flex: 1;
+  flex: 10;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .main-grid {
@@ -32,4 +36,15 @@ body {
 .tool-bar {
   display: flex;
   flex-direction: column;
+  padding: 0 1em 0 1em;
+}
+
+.tool-bar button {
+  margin-bottom: 1em;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
 }

@@ -17,18 +17,16 @@ body {
   flex: 1;
 }
 
-.grid-container {
-}
-
 .main-grid {
   display: grid;
+  width: 500px;
+  height: 500px;
 }
 
 .grid-item {
-  padding: 1em;
+  user-select: none;
   margin: -0.5px;
   border: 1px solid black;
-  text-align: center;
 }
 
 .tool-bar {

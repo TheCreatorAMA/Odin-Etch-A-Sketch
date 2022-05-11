@@ -4,17 +4,20 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: stretch;
+}
+
+.header {
+  display: flex;
+  flex: 1;
 }
 
 .main-content {
   display: flex;
+  flex: 1;
 }
 
 .grid-container {
-  display: block;
-  width: 100px;
-  height: 100px;
 }
 
 .main-grid {
@@ -25,7 +28,7 @@ body {
   padding: 1em;
   margin: -0.5px;
   border: 1px solid black;
-  text-align: cetner;
+  text-align: center;
 }
 
 .tool-bar {

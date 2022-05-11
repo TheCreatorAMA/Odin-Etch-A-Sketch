@@ -1,7 +1,11 @@
-const mainGrid = document.querySelector('.main-grid');
+let mainGrid = document.querySelector('.main-grid');
 const clearGridButton = document.querySelector('#clear-grid');
 const slider = document.querySelector('#grid-slider');
 const sliderValue = document.querySelector('#slider-value');
+
+// Button to test functions
+const test = document.querySelector('#test');
+test.addEventListener('click', () => deleteGrid());
 
 // This is here to simulate mouse "held" state
 let mouseDown = false;
@@ -15,27 +19,40 @@ clearGridButton.addEventListener('click', clearGrid);
 sliderValue.textContent = slider.value;
 slider.oninput = () => {
   sliderValue.textContent = slider.value;
-  generateGrid(sliderValue, sliderValue);
+  deleteGrid();
+  generateGrid(slider.value);
 };
 
 function generateGrid(size) {
   // To generate grid using css-grid.
+  // Read online that this is a faster method to adding multiple elements to DOM
+  let fragment = document.createDocumentFragment();
+
   mainGrid.style.cssText = `grid-template-rows: repeat(${size}, 1fr);grid-template-columns: repeat(${size}, 1fr);`;
 
   for (let item = 0; item < size * size; item++) {
     let newCell = document.createElement('div');
+    newCell.className = 'grid-item';
 
-    // Event listener to
+    // Add Event listener to each element for changing background color
     newCell.addEventListener('mouseover', changeColor);
     newCell.addEventListener('mousedown', changeColor);
     newCell.style.cssText = `width: ${1 / (size * size)}%;height: ${1 / (size * size)}%;`;
-    mainGrid.appendChild(newCell).className = 'grid-item';
+    fragment.appendChild(newCell);
+  }
+
+  mainGrid.appendChild(fragment);
+}
+
+function deleteGrid() {
+  while (mainGrid.hasChildNodes()) {
+    console.log('removing children');
+    mainGrid.removeChild(mainGrid.lastChild);
   }
 }
 
 function clearGrid() {
   let cells = document.querySelectorAll('.grid-item');
-
   for (let cell of cells) {
     cell.style.setProperty('background-color', 'initial');
   }

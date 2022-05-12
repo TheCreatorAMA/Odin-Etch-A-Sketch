@@ -45,7 +45,11 @@ slider.oninput = () => {
 };
 
 // Event listener for color picker input
-colorPicker.oninput = (e) => (currentColor = e.target.value);
+colorPicker.oninput = (e) => {
+  setButtonState(currentActiveButton);
+  currentColor = e.target.value;
+  colorModeTracker = 'normal';
+};
 
 function generateGrid(size) {
   // To generate grid using css-grid.
@@ -114,7 +118,9 @@ function setButtonState(button) {
   // Simulating button state to assign active class
   if (!currentActiveButton) {
     currentActiveButton = button;
-    button.classList.add('active-button');
+    if (currentActiveButton) {
+      button.classList.add('active-button');
+    }
   } else if (button === currentActiveButton) {
     currentActiveButton = null;
     button.classList.remove('active-button');

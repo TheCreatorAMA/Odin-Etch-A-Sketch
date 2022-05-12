@@ -12,6 +12,7 @@ const colorPicker = document.querySelector('.color-picker');
 let currentColor = colorPicker.value;
 let colorModeTracker = 'normal';
 let mouseDown = false;
+let currentActiveButton = null;
 
 // This is here to simulate mouse "held" state
 mainGrid.addEventListener('mousedown', () => (mouseDown = true));
@@ -21,14 +22,14 @@ mainGrid.addEventListener('mouseup', () => (mouseDown = false));
 clearGridButton.addEventListener('click', clearGrid);
 
 // Event listeners for color modes
-eraserModeButton.addEventListener(
-  'click',
-  () => (colorModeTracker = colorModeTracker === 'eraser' ? 'normal' : 'eraser')
-);
-rainbowModeButton.addEventListener(
-  'click',
-  () => (colorModeTracker = colorModeTracker === 'rainbow' ? 'normal' : 'rainbow')
-);
+eraserModeButton.addEventListener('click', () => {
+  setButtonState(eraserModeButton);
+  colorModeTracker = colorModeTracker === 'eraser' ? 'normal' : 'eraser';
+});
+rainbowModeButton.addEventListener('click', () => {
+  setButtonState(rainbowModeButton);
+  colorModeTracker = colorModeTracker === 'rainbow' ? 'normal' : 'rainbow';
+});
 // shaderModeButton.addEventListener(
 //   'click',
 //   () => (colorModeTracker = colorModeTracker === 'shader' ? 'normal' : 'shader')
@@ -75,7 +76,7 @@ function deleteGrid() {
 function clearGrid() {
   let cells = document.querySelectorAll('.grid-item');
   cells.forEach((cell) => {
-    cell.style.setProperty('background-color', 'initial');
+    cell.style.setProperty('background-color', 'white');
   });
 }
 
@@ -94,7 +95,7 @@ function changeColor(e) {
       e.target.style.cssText = `background-color: ${shadeCurrentElement(e.target)};`;
       break;
     case 'eraser':
-      e.target.style.cssText = 'background-color: none;';
+      e.target.style.cssText = 'background-color: white;';
       break;
   }
 }
@@ -109,9 +110,24 @@ function generateRandomColor() {
   return color;
 }
 
-function shadeCurrentElement(targetElement) {
-  // targetElement.
+function setButtonState(button) {
+  // Simulating button state to assign active class
+  if (!currentActiveButton) {
+    currentActiveButton = button;
+    button.classList.add('active-button');
+  } else if (button === currentActiveButton) {
+    currentActiveButton = null;
+    button.classList.remove('active-button');
+  } else {
+    currentActiveButton.classList.remove('active-button');
+    currentActiveButton = button;
+    currentActiveButton.classList.add('active-button');
+  }
 }
+
+// function shadeCurrentElement(targetElement) {
+//   // target
+// }
 
 window.onload = () => {
   generateGrid(DEFAULT_SIZE);
